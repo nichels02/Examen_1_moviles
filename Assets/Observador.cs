@@ -11,7 +11,7 @@ public class Observador : MonoBehaviour
     [SerializeField] LayerMask ElLayer;
     RaycastHit LaColicion;
 
-    GameObject ElObjeto;
+    public GameObject ElObjeto;
 
     private void Update()
     {
@@ -21,10 +21,19 @@ public class Observador : MonoBehaviour
             ElObjeto = LaColicion.collider.gameObject;
 
         }
+        else
+        {
+            ElObjeto = null;
+        }
     }
 
 
-
+    private void OnDrawGizmos()
+    {
+        // Dibujar el raycast en el editor
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, direccion * distancia);
+    }
 
 
 }

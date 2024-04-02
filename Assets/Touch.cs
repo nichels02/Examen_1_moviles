@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Touch : MonoBehaviour
 {
-    Observador ElObservador;
+    [SerializeField] Observador ElObservador;
+    [SerializeField] float Profundidad;
+    [SerializeField] float PosicionZReal;
 
 
     // Start is called before the first frame update
@@ -18,7 +20,18 @@ public class Touch : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            UnityEngine.Touch ElTouch = Input.GetTouch(0);
+            Ray ray = Camera.main.ScreenPointToRay(ElTouch.position);
+            Vector3 posicionDelTouch = ray.GetPoint(Profundidad);
+            posicionDelTouch.z = PosicionZReal;
+            ElObservador.transform.position= posicionDelTouch;
 
+            
+
+            if(ElTouch.phase == TouchPhase.Began)
+            {
+                
+            }
         }
     }
 }
